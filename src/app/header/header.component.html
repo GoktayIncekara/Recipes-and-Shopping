@@ -1,25 +1,25 @@
 <nav class="navbar navbar-expand-md bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Recipe Book</a>
+        <a class="navbar-brand" routerLink="/">Recipe Book</a>
         <button (click)="collapsed=!collapsed" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" (click)="onSelect('recipe')" href="#">Recipes</a>
+                    <a class="nav-link" routerLink="/recipes" routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Recipes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="onSelect('shopping-list')" href="#">Shopping List</a>
+                    <a class="nav-link"  routerLink="/shopping-list"  routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Shopping List</a>
                 </li>
             </ul>
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                     Manage  <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Save Data</a></li>
-                    <li><a class="dropdown-item" href="#">Fetch Data</a></li>
+                    <li><a class="dropdown-item" style="cursor: pointer;">Save Data</a></li>
+                    <li><a class="dropdown-item" style="cursor: pointer;">Fetch Data</a></li>
                 </ul>
             </div>
         </div>
