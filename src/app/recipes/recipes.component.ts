@@ -18,8 +18,4 @@ export class RecipesComponent implements OnInit{
       this.currentRecipe = recipe;
     });
   }
-
-  recipeSelected(recipe: Recipe) {
-    this.currentRecipe = recipe;
-  }
 }
