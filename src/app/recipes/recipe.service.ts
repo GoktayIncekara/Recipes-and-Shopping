@@ -6,6 +6,7 @@ import { Recipe } from "./recipe.model";
 @Injectable()
 export class RecipeService {
     recipeSelected = new Subject<Recipe>();
+    recipesChanged = new Subject<Recipe[]>();
     
     private recipes: Recipe[] = [
         new Recipe(0,"A test recipe", "This is a simply test recipe", "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/british_shakshuka_26737_16x9.jpg", [
@@ -24,11 +25,30 @@ export class RecipeService {
         ]),
     ];
 
+    getNextId() {
+        return this.recipes.length;
+    }
+
     getRecipes() {
         return this.recipes.slice();
     }
 
     getRecipe(id: number) {
         return this.recipes[id];
+    }
+
+    addRecipe(recipe: Recipe) {
+        this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index: number) {
+        this.recipes.splice(index,1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe) {
+        this.recipes[index] = newRecipe;
+        this.recipesChanged.next(this.recipes.slice());
     }
 }
