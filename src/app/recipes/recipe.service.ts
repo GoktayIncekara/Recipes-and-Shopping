@@ -7,8 +7,9 @@ import { Recipe } from "./recipe.model";
 export class RecipeService {
     recipeSelected = new Subject<Recipe>();
     recipesChanged = new Subject<Recipe[]>();
+    private recipes: Recipe[] = [];
     
-    private recipes: Recipe[] = [
+    /* private recipes: Recipe[] = [
         new Recipe(0,"A test recipe", "This is a simply test recipe", "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/british_shakshuka_26737_16x9.jpg", [
             new Ingredient("Meat", 4),
             new Ingredient("Banana", 10),
@@ -23,7 +24,12 @@ export class RecipeService {
             new Ingredient("Chocolate", 10),
             new Ingredient("Oath", 25)
         ]),
-    ];
+    ]; */
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
 
     getNextId() {
         return this.recipes.length;
