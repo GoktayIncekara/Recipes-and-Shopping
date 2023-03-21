@@ -32,7 +32,9 @@ export class RecipeService {
     }
 
     getNextId() {
-        return this.recipes.length;
+        const size = this.recipes.length;
+        return this.recipes[size].id + 1;
+        
     }
 
     getRecipes() {
@@ -40,7 +42,21 @@ export class RecipeService {
     }
 
     getRecipe(id: number) {
-        return this.recipes[id];
+        for (let i = 0; i<this.recipes.length; i++) {
+            if (id === this.recipes[i].id) {
+                return this.recipes[i];
+            }
+        }
+        return this.recipes[0];
+    }
+
+    getRecipePosition(id: number) {
+        for (let i = 0; i<this.recipes.length; i++) {
+            if (id === this.recipes[i].id) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     addRecipe(recipe: Recipe) {
@@ -48,9 +64,10 @@ export class RecipeService {
         this.recipesChanged.next(this.recipes.slice());
     }
 
-    deleteRecipe(index: number) {
-        this.recipes.splice(index,1);
-        this.recipesChanged.next(this.recipes.slice());
+    deleteRecipe(id: number) {
+        let recipePosition = this.getRecipePosition(id);
+        this.recipes.splice(recipePosition,1);
+        this.recipesChanged.next(this.recipes.slice());   
     }
 
     updateRecipe(index: number, newRecipe: Recipe) {
