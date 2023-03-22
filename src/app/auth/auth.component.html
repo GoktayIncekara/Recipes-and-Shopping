@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-xs-12">
-        <div class="alert alert-danger" *ngIf="error" style="margin-top: 2rem;">
+        <!-- <div class="alert alert-danger" *ngIf="error" style="margin-top: 2rem;">
             <p>{{error}}</p>
-        </div>
+        </div> -->
+        <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>
         <div *ngIf="isLoading" style="text-align: center; margin-top: 2rem;">
             <app-loading-spinner></app-loading-spinner>
         </div>
