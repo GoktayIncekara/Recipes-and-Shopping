@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
-import { Ingredient } from "../shared/ingredient.model";
-import { Recipe } from "./recipe.model";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Ingredient } from '../shared/ingredient.model';
+import { Recipe } from './recipe.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RecipeService {
-    recipeSelected = new Subject<Recipe>();
-    recipesChanged = new Subject<Recipe[]>();
-    private recipes: Recipe[] = [];
-    
-    /* private recipes: Recipe[] = [
+  recipeSelected = new Subject<Recipe>();
+  recipesChanged = new Subject<Recipe[]>();
+  private recipes: Recipe[] = [];
+
+  /* private recipes: Recipe[] = [
         new Recipe(0,"A test recipe", "This is a simply test recipe", "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/british_shakshuka_26737_16x9.jpg", [
             new Ingredient("Meat", 4),
             new Ingredient("Banana", 10),
@@ -26,52 +26,51 @@ export class RecipeService {
         ]),
     ]; */
 
-    setRecipes(recipes: Recipe[]) {
-        this.recipes = recipes;
-        this.recipesChanged.next(this.recipes.slice());
-    }
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
-    getNextId() {
-        const size = this.recipes.length;
-        return this.recipes[size].id + 1;
-        
-    }
+  getNextId() {
+    const size = this.recipes.length;
+    return this.recipes[size].id + 1;
+  }
 
-    getRecipes() {
-        return this.recipes.slice();
-    }
+  getRecipes() {
+    return this.recipes.slice();
+  }
 
-    getRecipe(id: number) {
-        for (let i = 0; i<this.recipes.length; i++) {
-            if (id === this.recipes[i].id) {
-                return this.recipes[i];
-            }
-        }
-        return this.recipes[0];
+  getRecipe(id: number) {
+    for (let i = 0; i < this.recipes.length; i++) {
+      if (id === this.recipes[i].id) {
+        return this.recipes[i];
+      }
     }
+    return this.recipes[0];
+  }
 
-    getRecipePosition(id: number) {
-        for (let i = 0; i<this.recipes.length; i++) {
-            if (id === this.recipes[i].id) {
-                return i;
-            }
-        }
-        return 0;
+  getRecipePosition(id: number) {
+    for (let i = 0; i < this.recipes.length; i++) {
+      if (id === this.recipes[i].id) {
+        return i;
+      }
     }
+    return 0;
+  }
 
-    addRecipe(recipe: Recipe) {
-        this.recipes.push(recipe);
-        this.recipesChanged.next(this.recipes.slice());
-    }
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
-    deleteRecipe(id: number) {
-        let recipePosition = this.getRecipePosition(id);
-        this.recipes.splice(recipePosition,1);
-        this.recipesChanged.next(this.recipes.slice());   
-    }
+  deleteRecipe(id: number) {
+    let recipePosition = this.getRecipePosition(id);
+    this.recipes.splice(recipePosition, 1);
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
-    updateRecipe(index: number, newRecipe: Recipe) {
-        this.recipes[index] = newRecipe;
-        this.recipesChanged.next(this.recipes.slice());
-    }
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 }
